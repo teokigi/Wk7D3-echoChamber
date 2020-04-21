@@ -1,7 +1,22 @@
 <template lang="html">
-  <div>
-    <echo-chamber-user v-for="(tweet,index) in tweets" :key="index" :tweet="tweet"></echo-chamber-user>
-  </div>
+  <div id="secondapp">
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div>
+      <form id="form">
+        form
+      </form>
+    </div>
+    <div>
+      <echo-chamber-user v-for="(tweet,index) in tweets" :key="index" :tweet="tweet"></echo-chamber-user>
+    </div>
+
+    <div>
+      <h2>total likes onscreen: {{totalLikes}}</h2>
+    </div>
+
+</div>
 </template>
 
 <script>
@@ -9,7 +24,7 @@
   import EchoChamberUser from './components/EchoChamberUser.vue';
 
   export default {
-    name:'app',
+    name:'2ndapp',
     data() {
       return {
         tweets:[
@@ -42,11 +57,16 @@
       },
       components:{
         'echo-chamber-user' : EchoChamberUser
+      },
+      computed:{
+        totalLikes: function(){
+          return this.tweets.reduce((total,tweet)=> total + tweet.likes,0);
+        }
       }
 }
 // MVP
-// Display a list of tweets with all the details.
-// Display the user avatar along with the tweet
+// done - Display a list of tweets with all the details.
+// done - Display the user avatar along with the tweet
 // Use computed property to display the total number of likes for all tweets.
 // Extensions
 // Allow user to add a new tweet. Use an existing avatar links. (Add the Form to the App component)
@@ -55,10 +75,22 @@
 </script>
 
 <style lang="css" scoped>
-body{
+#app{
   width:100%;
   height:100%;
-  background-color:blue;
-  border-style:1;
+  margin:0px;
+  padding:0px;
+  background-color:lightblue;
+  display:flex;
+  align-content:space-around;
+  justify-content:space-around;
+}
+div{
+  border-style:solid;
+  margin:5px;
+}
+#secondapp{
+  background-color:lightblue;
+
 }
 </style>
