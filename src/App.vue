@@ -5,7 +5,11 @@
       </noscript>
       <h1> The Echo Chamber </h1>
       <div>
-        <echo-chamber-user v-for="(tweet,index) in tweets" :key="index" :tweet="tweet" v-on:addMessage="theMessage =>{addMessage(theMessage)}"></echo-chamber-user>
+          <label for="numberInput">filter by dislikes greater than: </label>
+          <input type="number" name="numberInput" v-model="likeFilter" @change="filteredTweets" >
+      </div>
+      <div>
+        <echo-chamber-user v-for="(tweet,index) in filteredTweets" :key="index" :tweet="tweet" v-on:addMessage="theMessage =>{addMessage(theMessage)}"></echo-chamber-user>
       </div>
 
       <div>
@@ -24,6 +28,7 @@
     name:'app',
     data() {
       return {
+        likeFilter:0,
         tweets:[
           {
             id: 1,
@@ -58,6 +63,9 @@
       computed:{
         totalLikes: function(){
           return this.tweets.reduce((total,tweet)=> total + tweet.likes,0);
+        },
+        filteredTweets(){
+          return this.tweets.filter(tweet => tweet.likes>=this.likeFilter)
         }
       },
       methods:{

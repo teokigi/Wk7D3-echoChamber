@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="echo-chamber-user">
       <div class="image">
-        <img v-bind:src="tweet.img">
+        <img v-bind:src="tweet.img" id="image">
       </div>
       <div class="text">
       <div class="tweetText">
@@ -9,12 +9,12 @@
         <div class="tweeterName"> {{tweet.name}}</div>
         <div class="tweeterHandle"> {{tweet.handle}}</div>
         <div class="tweeterMessage"> {{tweet.tweet}}</div>
-        <div class="tweeterResponses">dislikes: {{tweet.likes}}</div>
+        <div class="tweeterResponses"><img class="icon" v-on:click="tweet.likes++"src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/samsung/220/thumbs-down-sign_1f44e.png"> {{tweet.likes}}</div>
       </div>
       <div class="form">
         <form v-on:submit.prevent="newMessage()" >
           <input type="text" v-model="newTweetMessage.tweet" class="textInput">
-          <input type="submit" value="say more">
+          <input type="submit" v-bind:value="`Make ${tweet.name} say`">
         </form>
       </div>
     </div>
@@ -61,10 +61,14 @@ methods:{
 .image{
   width:100px;
 }
-img{
+#image{
   height:100px;
   width:^100px;
   border-radius:50px;
+}
+.icon{
+  height: 25px;
+  width: 25px;
 }
 .tweetText{
   text-align:left;
@@ -92,6 +96,7 @@ img{
   font-size:25px;
 }
 .tweeterResponses{
-  text-align:center;
+  text-align:right;
+  font-size:30px;
 }
 </style>
