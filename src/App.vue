@@ -5,15 +5,17 @@
       </noscript>
       <h1> The Echo Chamber </h1>
       <div>
-          <label for="numberInput">filter by dislikes greater than: </label>
-          <input type="number" name="numberInput" v-model="likeFilter" @change="filteredTweets" >
+          Total dislikes: {{totalLikes}},
+          <label for="numberInput">View dislikes greater than: </label>
+          <input type="number" name="numberInput" v-model="likeFilter" @change="filteredTweets" id="numberInput" min="0">
+
       </div>
-      <div>
+      <div id="tweetBody">
         <echo-chamber-user v-for="(tweet,index) in filteredTweets" :key="index" :tweet="tweet" v-on:addMessage="theMessage =>{addMessage(theMessage)}"></echo-chamber-user>
       </div>
 
       <div>
-        <h2>total likes onscreen: {{totalLikes}}</h2>
+
       </div>
 
   </div>
@@ -79,8 +81,8 @@
 // done - Display the user avatar along with the tweet
 // Use computed property to display the total number of likes for all tweets.
 // Extensions
-// Allow user to add a new tweet. Use an existing avatar links. (Add the Form to the App component)
-// Filter the tweets to only display ones with over 10 likes
+// done - Allow user to add a new tweet. Use an existing avatar links. (Add the Form to the App component)
+// done - Filter the tweets to only display ones with over 10 likes
 // Change the styling for tweets with over 10 likes
 </script>
 
@@ -97,8 +99,17 @@
   align-items:center;
 }
 div{
-  border-style:solid;
   margin:5px;
 }
+#tweetBody{
+  background-color:yellow;
+  border-radius:25px;
 
+}
+#numberInput{
+  border-style:none;
+  width:30px;
+  text-align:center;
+  background-color:inherit;
+}
 </style>

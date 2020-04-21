@@ -1,5 +1,5 @@
 <template lang="html">
-  <div id="echo-chamber-user">
+  <div v-bind:id="tweet.likes <= 10 ? 'echo-chamber-user': 'echo-chamber-user-disliked'">
       <div class="image">
         <img v-bind:src="tweet.img" id="image">
       </div>
@@ -13,8 +13,8 @@
       </div>
       <div class="form">
         <form v-on:submit.prevent="newMessage()" >
-          <input type="text" v-model="newTweetMessage.tweet" class="textInput">
-          <input type="submit" v-bind:value="`Make ${tweet.name} say`">
+          <input type="text" v-model="newTweetMessage.tweet" class="textInput" placeholder="Enter new message here">
+          <input type="submit" v-bind:value="`Make ${tweet.name} post`" class="submit">
         </form>
       </div>
     </div>
@@ -52,8 +52,21 @@ methods:{
   display:flex;
   flex-direction:row;
   border-radius:20px;
-  background-color:skyblue;
+  background-color:lightgreen;
   padding:5px;
+  margin:15px;
+  box-shadow: 0px 0px 20px black;
+}
+#echo-chamber-user-disliked{
+  width:640px;
+  display:flex;
+  flex-direction:row;
+  border-radius:20px;
+  background-color:#FF7777;
+  padding:5px;
+  color:darkred;
+  margin:15px;
+  box-shadow: 0px 0px 20px black;
 }
 .tweeter{
 
@@ -62,9 +75,10 @@ methods:{
   width:100px;
 }
 #image{
-  height:100px;
-  width:^100px;
+  height:90px;
+  width:90px;
   border-radius:50px;
+  box-shadow: 0px 0px 15px white;
 }
 .icon{
   height: 25px;
@@ -98,5 +112,19 @@ methods:{
 .tweeterResponses{
   text-align:right;
   font-size:30px;
+}
+.textInput{
+  margin:2px;
+  padding:2px;
+  width:300px;
+  border-style:none;
+  border-radius:5px;
+  box-shadow: inset 0px 0px 4px blue;
+}
+.submit{
+  border-radius:10px;
+  color:white;
+  width:150px;
+  background-color:#9999FF;
 }
 </style>
