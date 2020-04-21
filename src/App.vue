@@ -1,22 +1,19 @@
 <template lang="html">
-  <div id="secondapp">
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div>
-      <form id="form">
-        form
-      </form>
-    </div>
-    <div>
-      <echo-chamber-user v-for="(tweet,index) in tweets" :key="index" :tweet="tweet"></echo-chamber-user>
-    </div>
+  <body id="app">
+      <noscript>
+        <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      </noscript>
+      <h1> The Echo Chamber </h1>
+      <div>
+        <echo-chamber-user v-for="(tweet,index) in tweets" :key="index" :tweet="tweet" v-on:addMessage="theMessage =>{addMessage(theMessage)}"></echo-chamber-user>
+      </div>
 
-    <div>
-      <h2>total likes onscreen: {{totalLikes}}</h2>
-    </div>
+      <div>
+        <h2>total likes onscreen: {{totalLikes}}</h2>
+      </div>
 
-</div>
+  </div>
+</body>
 </template>
 
 <script>
@@ -24,7 +21,7 @@
   import EchoChamberUser from './components/EchoChamberUser.vue';
 
   export default {
-    name:'2ndapp',
+    name:'app',
     data() {
       return {
         tweets:[
@@ -62,6 +59,11 @@
         totalLikes: function(){
           return this.tweets.reduce((total,tweet)=> total + tweet.likes,0);
         }
+      },
+      methods:{
+        addMessage(message){
+          this.tweets.unshift(message);
+        }
       }
 }
 // MVP
@@ -81,16 +83,14 @@
   margin:0px;
   padding:0px;
   background-color:lightblue;
+  text-align:center;
   display:flex;
-  align-content:space-around;
-  justify-content:space-around;
+  flex-direction:column;
+  align-items:center;
 }
 div{
   border-style:solid;
   margin:5px;
 }
-#secondapp{
-  background-color:lightblue;
 
-}
 </style>
